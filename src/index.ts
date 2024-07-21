@@ -1,36 +1,38 @@
 import axios from "axios";
 import { AxiosError } from "axios";
+import { RRequestHandlerOption, RErrorResponse, RRequestData, RSuccessResponse, RRequestHandler } from "./types";
 
-interface RRequestHandlerOption {
-    url: string;
-}
-
-type RRequestResponse<Res> = RRequestSuccessResponse<Res> | RRequestErrorResponse;
-
-interface RRequestSuccessResponse<Res>{
-    status: "success";
-    data: Res
-}
-interface RRequestErrorResponse{
-    status: "error";
-    statusCode: number;
-    reason?: string;
-}
-
-function defineRequestHandler<Req, Res>({ url }: RRequestHandlerOption): (requestData: Req) => Promise<RRequestSuccessResponse<Res>> {
+export function defineRequestHandler<Req extends RRequestData, Res>({ url, method }: RRequestHandlerOption<Req>): RRequestHandler<Req, Res> {
     return async (requestData: Req) => {
         try {
             const response = await axios({
-                url
+                url,
+                method,
+                data: requestData
             })
 
-            return response.data as RRequestSuccessResponse<Res>;
-        }
-        catch(err) {
-            if(err instanceof AxiosError){
-                
+            const responseData: RSuccessResponse<Res> = {
+                status: "success",
+                data: response.data
             }
 
+            return responseData;
+        }
+        catch (err) {
+            if (err instanceof AxiosError) {
+                if (err.status) {
+                    const error: RErrorResponse = {
+                        status: "error",
+                        statusCode: err.status,
+                        reason: err.response?.data?.reason
+                    };
+                    return error;
+                }
+                return {
+                    status: "error",
+                    statusCode: null
+                };
+            }
             throw err;
         }
     }

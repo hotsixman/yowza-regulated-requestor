@@ -26,5 +26,8 @@
     "backend"
   ],
   "author": "hotsixman",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@yowza/server": "^0.3.3"
+  }
 }
