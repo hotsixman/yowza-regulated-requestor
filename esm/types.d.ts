@@ -4,7 +4,7 @@ export interface RRequestHandlerOption<Req extends RRequestData> {
     method: Req extends void ? string : "post" | "put" | "delete";
 }
 export type RRequestData = RRequestJSON | FormData | string | void;
-export type RRequestJSON = string | number | boolean | null | object;
+export type RRequestJSON = object;
 export type RResponse<Res> = RSuccessResponse<Res> | RErrorResponse;
 export interface RSuccessResponse<Res> {
     status: "success";
