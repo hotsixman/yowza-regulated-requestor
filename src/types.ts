@@ -1,7 +1,3 @@
-export interface RRequestor {
-    [handler: string]: RRequestHandler<any, any>
-}
-
 export type RRequestHandler<Req extends RRequestData, Res> = (requestData: Req) => Promise<RResponse<Res>>;
 export interface RRequestHandlerOption<Req extends RRequestData> {
     url: string;

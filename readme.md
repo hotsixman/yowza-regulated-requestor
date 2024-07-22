@@ -5,35 +5,6 @@ Regulated Requestor는 REST API를 사용하기 위한 객체를 정의합니다
 - 요청 데이터와 응답 데이터의 타입을 잘 정의할 수 있습니다.
 - 같은 요청을 여러 코드에서 쉽게 재사용 할 수 있습니다.
 
-## `interface` RRequestor
-
-```ts
-export interface RRequestor {
-    [handler: string]: RRequestHandler<any, any>
-};
-
-//handler
-export type RRequestHandler<Req extends RRequestData, Res> = (requestData: Req) => Promise<RRequestResponse<Res>>;
-
-//request data
-export type RRequestData = RRequestJSON | FormData | string | void;
-export type RRequestJSON = string | number | boolean | null | object;
-
-//response data
-export type RResponse<Res> = RSuccessResponse<Res> | RErrorResponse;
-export interface RSuccessResponse<Res> {
-    status: "success";
-    data: Res
-};
-export interface RErrorResponse {
-    status: "error";
-    statusCode: number | null;
-    reason?: string;
-};
-```
-
-`RRequestor`는 `RRequestHandler`를 프로퍼티 값으로 가지는 객체입니다.
-
 ## `interface` RRequestHandler
 
 `RRequestHandler`는 `RRequestData`를 파라미터로 받아 `RResponse` 객체의 프로미스를 반환합니다. `RResponse` 객체는 `status` 프로퍼티를 통해 요청의 성공/실패 여부를 알 수 있습니다.
