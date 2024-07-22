@@ -1,7 +1,7 @@
 {
-  "name": "@yowza/rclient",
-  "version": "0.1.0",
-  "description": "A regulated client for REST API",
+  "name": "@yowza/rrequestor",
+  "version": "0.1.1",
+  "description": "A regulated requestor for REST API",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "exports": {
@@ -29,5 +29,6 @@
   "license": "MIT",
   "devDependencies": {
     "@yowza/server": "^0.3.3"
-  }
+  },
+  "repository": "https://github.com/hotsixman/yowza-regulated-requestor"
 }
