@@ -16,10 +16,10 @@ export function defineRequestHandler({ url, method }) {
         }
         catch (err) {
             if (err instanceof AxiosError) {
-                if (err.status) {
+                if (err.response?.status) {
                     const error = {
                         status: "error",
-                        statusCode: err.status,
+                        statusCode: err.response.status,
                         reason: err.response?.data?.reason
                     };
                     return error;
