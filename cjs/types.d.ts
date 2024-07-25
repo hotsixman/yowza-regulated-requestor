@@ -1,9 +1,9 @@
 export type RRequestHandler<Req extends RRequestData, Res> = (requestData: Req) => Promise<RResponse<Res>>;
 export interface RRequestHandlerOption<Req extends RRequestData> {
     url: string;
-    method: Req extends void ? string : "post" | "put" | "delete";
+    method: Req extends null ? string : "post" | "put" | "delete";
 }
-export type RRequestData = RRequestJSON | FormData | string | void;
+export type RRequestData = RRequestJSON | FormData | string | null;
 export type RRequestJSON = object;
 export type RResponse<Res> = RSuccessResponse<Res> | RErrorResponse;
 export interface RSuccessResponse<Res> {
