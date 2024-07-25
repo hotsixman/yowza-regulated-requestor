@@ -20,10 +20,10 @@ export function defineRequestHandler<Req extends RRequestData, Res>({ url, metho
         }
         catch (err) {
             if (err instanceof AxiosError) {
-                if (err.status) {
+                if (err.response?.status) {
                     const error: RErrorResponse = {
                         status: "error",
-                        statusCode: err.status,
+                        statusCode: err.response.status,
                         reason: err.response?.data?.reason
                     };
                     return error;
